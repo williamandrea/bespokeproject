@@ -120,7 +120,35 @@
         maxDepth: 10
       }
     }
-    
+
+    let state = null
+    let turnHistory = []
+    document.addEventListener('DOMContentLoaded', () => {
+      $('table').css('display', 'none')
+    })
+
+    $('#btn').on('click', () => main())
+
+    function main() {
+      if ($('#btn').html === 'Reset') {
+        board = new TicTacToeBoard()
+        turn = 'X'
+        turnHistory = []
+        state = null
+        // $('#result').html('')
+        $('table').css('display', 'none')
+        $('#btn').html('Play Game')
+        return
+      }
+      $('table').css('display', 'table')
+      $('#btn').html('Reset')
+    }
+
+    for (let i = 0; i < 9; i++) {
+      console.log('#cell' + i)
+      $('#cell' + i).on('click', (e) => alert('#cell' + i))
+    }
+
   </script>
 </body>
 
