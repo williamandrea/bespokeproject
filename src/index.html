@@ -93,6 +93,34 @@
         console.log(this.state)
       }
     }
+
+    class TicTacToeAI {
+      board = null
+      player = null
+      moves = []
+      maxDepth = 100
+
+      constructor(player, board) {
+        this.player = player
+        this.board = board
+      }
+    }
+
+    let board = new Board()
+    let turn = 'X'
+    let players = {
+      x: 'Human',
+      o: 'AI',
+    }
+    let AIConfig = {
+      x: {
+        maxDepth: 10
+      },
+      o: {
+        maxDepth: 10
+      }
+    }
+    
   </script>
 </body>
 
