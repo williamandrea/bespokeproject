@@ -205,6 +205,20 @@
       }
     }
 
+    let board = new Board()
+    let turn = 'X'
+    let players = {
+      x: 'Human',
+      o: 'AI',
+    }
+    let AIConfig = {
+      x: {
+        maxDepth: 10
+      },
+      o: {
+        maxDepth: 10
+      }
+    }
     let state = null
     let turnHistory = []
     document.addEventListener('DOMContentLoaded', () => {
@@ -212,8 +226,16 @@
     })
 
     $('#btn').on('click', () => main())
+    // $('#p1').on('change', () => players.x = $('#p1').val())
+    // $('#p2').on('change', () => players.o = $('#p2').val())
+
+
+
+
 
     function main() {
+      console.log('main')
+      console.log($('#btn').html)
       if ($('#btn').html === 'Reset') {
         board = new TicTacToeBoard()
         turn = 'X'
@@ -226,13 +248,80 @@
       }
       $('table').css('display', 'table')
       $('#btn').html('Reset')
+      nextTurn()
+    }
+
+    function nextTurn() {
+      console.clear()
+      board.printBoardPretty()
+      renderBoard()
+
+      let win = board.getWinner()
+      console.log('nextTurn', win)
+      if (win !== null) {
+        if (win === 'tie') {
+          let msg = 'GAME DRAW!'
+          state = 'tie';
+          $('#result').html(msg);
+          console.warn(msg)
+        } else {
+          let msg = 'PLAYER ' + win + ' WIN!!!'
+          state = 'win'
+          $('#result').html(msg)
+          console.warn(msg)
+        }
+        return console.log({ gameResult: state, history: turnHistory, players, firstTurn: turnHistory[0], AIConfig, board })
+      }
+
+      // make message
+      console.log('players', players)
+      let gameText = "Player [" + turn + "] " + players[turn]?.toUpperCase() + " turn..."
+      console.warn(gameText)
+      $('#result').html(gameText)
+
+      // nex turn
+      if (players[turn] == 'AI') {
+        console.log("AI thinking...")
+        setTimeout(() => AIMove(), 500)
+      } else {
+        console.log("[+] How To Human Turn with Console : [+]")
+        console.log("    * User 'HumanMove(index) function")
+        console.log("    * Example 'HumanMove(1) => For Move To 1x0 in Board")
+      }
+    }
+
+    function AIMove() {
+      let AI = new TicTacToeAI(turn, board)
+      AI.maxDepth = AIConfig[turn].maxDepth
+      let result = AI.getBestMove()
+      turnHistory.push({ player: turn, move: result })
+      board.move(turn, result.move)
+      turn = (turn == 'x') ? 'o' : 'x'
+      setTimeout(() => nextTurn(), 1)
+      return ''
+    }
+
+
+    function HumanMove(index) {
+      if (state != null || players[turn] != 'human') return
+
+      // turn
+      board.move(turn, index)
+      turn = (turn == 'x') ? 'o' : 'x'
+      nextTurn()
+      return ''
+    }
+
+    function renderBoard() {
+      for (let i = 0; i < 9; i++) {
+        $('#cell' + i).html(board.state[i])
+      }
     }
 
     for (let i = 0; i < 9; i++) {
       console.log('#cell' + i)
-      $('#cell' + i).on('click', (e) => alert('#cell' + i))
+      $('#cell' + i).on('click', (e) => HumanMove($(e.target).attr('id').split('cell')[1]))
     }
-
   </script>
 </body>
 
