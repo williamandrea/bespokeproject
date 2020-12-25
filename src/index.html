@@ -23,6 +23,7 @@
       width: 100px;
       height: 100px;
       text-align: center;
+      font-size: 72px;
     }
 
     td:hover {
@@ -43,7 +44,7 @@
     <section>
       <h1>Play Game</h1>
       <a href="#1" style='margin-bottom: 30px;'>kembali</a>
-      <button id='btn'>Reset</button>
+      <button id='btn'>Start Game</button>
       <table>
         <tr>
           <td id='cell0'></td>
@@ -138,7 +139,6 @@
 
           if ((i + 1) % size === 0 && i < this.state.length - 1) result += '\n-----------\n'
         }
-        console.log("%c" + result, 'color: red;background: black;font-weight: bold;')
       }
     }
 
@@ -179,7 +179,7 @@
           let bestScore = -Infinity
           for (var i = 0; i < board.state.length; i++) {
             if (board.state[i] == '') {
-              let newBoard = new TicTacToeBoard([...board.state])
+              let newBoard = new Board([...board.state])
               newBoard.move(this.player, i) // isMaximizing = ai isntance
               let score = this.minimax(newBoard, false, depth + 1)
               bestScore = Math.max(score, bestScore)
@@ -192,7 +192,7 @@
           let bestScore = Infinity
           for (var i = 0; i < board.state.length; i++) {
             if (board.state[i] == '') {
-              let newBoard = new TicTacToeBoard([...board.state])
+              let newBoard = new Board([...board.state])
               let enemy = (this.player == 'x') ? 'o' : 'x'
               newBoard.move(enemy, i) // isMaximizing = Enemy isntance
               let score = this.minimax(newBoard, true, depth + 1)
@@ -206,10 +206,10 @@
     }
 
     let board = new Board()
-    let turn = 'X'
+    let turn = 'x'
     let players = {
-      x: 'Human',
-      o: 'AI',
+      x: 'human',
+      o: 'ai',
     }
     let AIConfig = {
       x: {
@@ -229,19 +229,12 @@
     // $('#p1').on('change', () => players.x = $('#p1').val())
     // $('#p2').on('change', () => players.o = $('#p2').val())
 
-
-
-
-
     function main() {
-      console.log('main')
-      console.log($('#btn').html)
-      if ($('#btn').html === 'Reset') {
-        board = new TicTacToeBoard()
-        turn = 'X'
+      if ($('#btn').html === 'Reset Game') {
+        board = new Board()
+        turn = 'x'
         turnHistory = []
         state = null
-        // $('#result').html('')
         $('table').css('display', 'none')
         $('#btn').html('Play Game')
         return
@@ -257,36 +250,22 @@
       renderBoard()
 
       let win = board.getWinner()
-      console.log('nextTurn', win)
       if (win !== null) {
         if (win === 'tie') {
           let msg = 'GAME DRAW!'
           state = 'tie';
-          $('#result').html(msg);
+          alert(msg)
           console.warn(msg)
         } else {
           let msg = 'PLAYER ' + win + ' WIN!!!'
           state = 'win'
-          $('#result').html(msg)
+          alert(msg)
           console.warn(msg)
         }
-        return console.log({ gameResult: state, history: turnHistory, players, firstTurn: turnHistory[0], AIConfig, board })
       }
 
-      // make message
-      console.log('players', players)
-      let gameText = "Player [" + turn + "] " + players[turn]?.toUpperCase() + " turn..."
-      console.warn(gameText)
-      $('#result').html(gameText)
-
-      // nex turn
-      if (players[turn] == 'AI') {
-        console.log("AI thinking...")
+      if (players[turn] == 'ai') {
         setTimeout(() => AIMove(), 500)
-      } else {
-        console.log("[+] How To Human Turn with Console : [+]")
-        console.log("    * User 'HumanMove(index) function")
-        console.log("    * Example 'HumanMove(1) => For Move To 1x0 in Board")
       }
     }
 
@@ -319,7 +298,6 @@
     }
 
     for (let i = 0; i < 9; i++) {
-      console.log('#cell' + i)
       $('#cell' + i).on('click', (e) => HumanMove($(e.target).attr('id').split('cell')[1]))
     }
   </script>
