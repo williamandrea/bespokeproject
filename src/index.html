@@ -4,22 +4,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Tic Tac Toe</title>
   <link rel="stylesheet" type="text/css" href="build/build.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Tic Tac Toe</title>
   <style>
+    body {
+      background: #14BDAC;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    section {
+      background: #14BDAC !important;
+    }
+
     h1,
     h2,
     h3 {
       margin: 0;
+      color: white;
+      font-size: 72px;
     }
 
     h3 {
-      color: gray;
+      color: whitesmoke;
+      font-size: 24px;
     }
 
     td {
-      background: #f1f1f1;
-      border: 1px solid black;
+      background: #14BDAC;
       width: 100px;
       height: 100px;
       text-align: center;
@@ -28,6 +41,45 @@
 
     td:hover {
       cursor: pointer;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    table td {
+      border: 5px solid #0DA192;
+    }
+
+    table tr:first-child td {
+      border-top: 0;
+    }
+
+    table tr td:first-child {
+      border-left: 0;
+    }
+
+    table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    table tr td:last-child {
+      border-right: 0;
+    }
+
+    #startgame-link {
+      color: white;
+      padding: 10px 120px;
+      border: 2px solid white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 20px;
+      margin-top: 40px;
+    }
+
+    #startgame-link:hover {
+      background: white;
+      color: #0DA192;
     }
   </style>
 </head>
@@ -38,11 +90,10 @@
     <section>
       <h1>Tic Tac Toe</h1>
       <h3>menggunakan Algoritma MiniMax</h3>
-      <a href="#2" style='margin-top: 30px;'>Mulai Permainan</a>
+      <a id='startgame-link' href="#2">Mulai Permainan</a>
     </section>
 
     <section>
-      <h1>Play Game</h1>
       <a href="#1" style='margin-bottom: 30px;'>kembali</a>
       <button id='btn'>Start Game</button>
       <table>
@@ -249,6 +300,10 @@
       board.printBoardPretty()
       renderBoard()
 
+      if (players[turn] == 'ai') {
+        setTimeout(() => AIMove(), 500)
+      }
+
       let win = board.getWinner()
       if (win !== null) {
         if (win === 'tie') {
@@ -257,16 +312,13 @@
           alert(msg)
           console.warn(msg)
         } else {
-          let msg = 'PLAYER ' + win + ' WIN!!!'
+          let msg = `${win === 'o' ? 'AI' : 'Human'}` + ' WIN!!!'
           state = 'win'
           alert(msg)
           console.warn(msg)
         }
       }
 
-      if (players[turn] == 'ai') {
-        setTimeout(() => AIMove(), 500)
-      }
     }
 
     function AIMove() {
