@@ -81,6 +81,29 @@
       background: white;
       color: #0DA192;
     }
+
+    .card {
+      background: #f1f1f1;
+      width: 200px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    .card:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+      width: 420px;
+    }
   </style>
 </head>
 
@@ -97,6 +120,14 @@
       <!-- <h1>Play Game</h1> -->
       <a href="#1" style='margin-bottom: 30px;'>kembali</a>
       <button id='btn'>Start Game</button>
+      <div class="card-container">
+        <div class='card'>
+          Main dengan Teman
+        </div>
+        <div class='card'>
+          Main dengan Komputer
+        </div>
+      </div>
       <table>
         <tr>
           <td id='cell0'></td>
@@ -282,15 +313,14 @@
     // $('#p2').on('change', () => players.o = $('#p2').val())
 
     function main() {
-      alert('aaa')
-      if ($('#btn').html === 'Reset Game') {
+      if ($('#btn').html() === 'Reset Game') {
         console.log('reset')
         board = new Board()
         turn = 'x'
         turnHistory = []
         state = null
         $('table').css('display', 'none')
-        $('#btn').html('Play Game')
+        $('#btn').html('Start Game')
         return
       }
       $('table').css('display', 'table')
