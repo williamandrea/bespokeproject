@@ -101,8 +101,14 @@
 
     .card-container {
       display: flex;
-      justify-content: space-between;
-      width: 420px;
+      width: 400px;
+      background: pink;
+    }
+
+    #logo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
     }
   </style>
 </head>
@@ -120,6 +126,8 @@
       <!-- <h1>Play Game</h1> -->
       <a href="#1" style='margin-bottom: 30px;'>kembali</a>
       <button id='btn'>Start Game</button>
+      <img id='logo'>
+      <audio id='audio' autoplay controls></audio>
       <div class="card-container">
         <div class='card'>
           Main dengan Teman
@@ -308,6 +316,8 @@
       $('table').css('display', 'none')
     })
 
+    document.getElementById("logo").src = "./images/logo.png";
+    document.getElementById("audio").src = "./images/audio.mp3";
     $('#btn').on('click', () => main())
     // $('#p1').on('change', () => players.x = $('#p1').val())
     // $('#p2').on('change', () => players.o = $('#p2').val())
