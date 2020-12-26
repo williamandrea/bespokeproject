@@ -94,14 +94,9 @@
     </section>
 
     <section>
+      <!-- <h1>Play Game</h1> -->
       <a href="#1" style='margin-bottom: 30px;'>kembali</a>
-      <div>
-        <p>Player: 0</p>
-        <p>Tie: 0</p>
-        <p>Computer: 0</p>
-      </div>
       <button id='btn'>Start Game</button>
-      <button id='btn'>Cara Main</button>
       <table>
         <tr>
           <td id='cell0'></td>
@@ -121,15 +116,6 @@
       </table>
       <div id="result"></div>
     </section>
-
-    <section>
-      <p>1. Buka gamenya</p>
-      <p>2. Pilih Start Game</p>
-      <p>3. Pilih Blok yang diinginkan</p>
-      <p>4. Setelah Lawan selesai bermain, anda baru bisa main lagi</p>
-      <p>5. Menangkan Permainan!</p>
-    </section>
-
 
   </article>
 
@@ -287,25 +273,18 @@
     }
     let state = null
     let turnHistory = []
-
-    var myGamePiece;
-    var myObstacles = [];
-    var mySound;
-
-    function startGame() {
-      myGamePiece = new component(30, 30, "red", 10, 120);
-      mySound = new sound("bounce.mp3");
-      myGameArea.start();
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
       $('table').css('display', 'none')
     })
 
     $('#btn').on('click', () => main())
+    // $('#p1').on('change', () => players.x = $('#p1').val())
+    // $('#p2').on('change', () => players.o = $('#p2').val())
 
     function main() {
+      alert('aaa')
       if ($('#btn').html === 'Reset Game') {
+        console.log('reset')
         board = new Board()
         turn = 'x'
         turnHistory = []
@@ -315,7 +294,7 @@
         return
       }
       $('table').css('display', 'table')
-      $('#btn').html('Reset')
+      $('#btn').html('Reset Game')
       nextTurn()
     }
 
@@ -323,10 +302,6 @@
       console.clear()
       board.printBoardPretty()
       renderBoard()
-
-      if (players[turn] == 'ai') {
-        setTimeout(() => AIMove(), 500)
-      }
 
       let win = board.getWinner()
       if (win !== null) {
@@ -336,13 +311,21 @@
           alert(msg)
           console.warn(msg)
         } else {
-          let msg = ${win === 'o' ? 'AI' : 'Human'} + ' WIN!!!'
+          let msg = 'PLAYER ' + win + ' WIN!!!'
           state = 'win'
           alert(msg)
           console.warn(msg)
         }
       }
 
+      let gameText = "Player [" + turn + "] " + players[turn].toUpperCase() + " turn..."
+      console.warn(gameText)
+      $('#result').html(gameText)
+
+      if (players[turn] == 'ai') {
+        console.log("AI thinking...")
+        setTimeout(() => AIMove(), 500)
+      }
     }
 
     function AIMove() {
