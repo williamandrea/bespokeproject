@@ -127,10 +127,16 @@
   <article class="deck">
 
     <section>
-      <h1>Tic Tac Toe</h1>
-      <h3>menggunakan Algoritma MiniMax</h3>
+      <marquee behavior="scroll" direction="left">
+        <h1>Tic Tac Toe</h1>
+      </marquee>
+      <marquee behavior="scroll" direction="right">
+        <h3>menggunakan Algoritma MiniMax</h3>
+      </marquee>
+      
       <a class='startgame-link player' href="#2">MULAI PERMAINAN</a>
       <a class='startgame-link player' href="#3">TENTANG KAMI</a>
+      <button id='exit' class='startgame-link player'>KELUAR</button>
       <audio id='audio' autoplay loop></audio>
     </section>
 
@@ -341,8 +347,16 @@
     document.getElementById("audio").src = "./images/audio.mp3";
     document.getElementById("audio").volume = 0.1;
     $('#btn').on('click', () => main())
+    $('#exit').on('click', () => handleExit())
     // $('#p1').on('change', () => players.x = $('#p1').val())
     // $('#p2').on('change', () => players.o = $('#p2').val())
+
+    function handleExit(){
+      const content = "Apakah anda yakin ingin keluar dari permainan?"
+      if(window.confirm(content)){
+        window.top.close()
+      }
+    }
 
     function main() {
       if ($('#btn').html() === 'Reset Game') {
@@ -403,4 +417,25 @@
 
 
     function HumanMove(index) {
-    
+      if (state != null || players[turn] != 'human') return
+
+      // turn
+      board.move(turn, index)
+      turn = (turn == 'x') ? 'o' : 'x'
+      nextTurn()
+      return ''
+    }
+
+    function renderBoard() {
+      for (let i = 0; i < 9; i++) {
+        $('#cell' + i).html(board.state[i])
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      $('#cell' + i).on('click', (e) => HumanMove($(e.target).attr('id').split('cell')[1]))
+    }
+  </script>
+</body>
+
+</html>
