@@ -80,6 +80,7 @@
     .startgame-link:hover {
       background: white;
       color: #0DA192;
+      cursor: pointer;
     }
 
     .card {
@@ -113,7 +114,7 @@
 
     .player{
       margin: 0;
-      width: 300px;
+      width: 500px;
       margin-top: 10px;
       padding-left: 10px;
       padding-right: 10px;
@@ -128,7 +129,8 @@
     <section>
       <h1>Tic Tac Toe</h1>
       <h3>menggunakan Algoritma MiniMax</h3>
-      <a class='startgame-link' href="#2">Mulai Permainan</a>
+      <a class='startgame-link player' href="#2">MULAI PERMAINAN</a>
+      <a class='startgame-link player' href="#3">TENTANG KAMI</a>
       <audio id='audio' autoplay loop></audio>
     </section>
 
@@ -137,12 +139,12 @@
       
       <button id='btn'>Start Game</button>
       <div class='startgame-link player'>
-        Main dengan Teman
+        MAIN DENGAN TEMAN
       </div>
       <div class='startgame-link player'>
-        Main dengan Komputer
+        MAIN DENGAN KOMPUTER
       </div>
-      <a href="#1" class="startgame-link player">kembali</a>
+      <a href="#1" class="startgame-link player">KEMBALI</a>
       <table>
         <tr>
           <td id='cell0'></td>
@@ -163,6 +165,19 @@
       <div id="result"></div>
     </section>
 
+    <section>
+      <h2>TENTANG KAMI</h2>
+      <p>Kami adalah mahasiswa semester akhir yang iseng untuk membuat sebuah game dengan kecerdasan buatan menggunakan bespoke.</p>
+      <p>Kelompok kami terdiri atas 3 orang, yaitu :
+        <ul>
+          <li>William Andrea - 171110622</li>
+          <li>Willian Andreas Tama - 171112321</li>
+          <li>Susanto - 171111016</li>
+        </ul>
+      </p>
+      
+      <a href="#1" class="startgame-link player">KEMBALI</a>
+    </section>
   </article>
 
   <script src="build/build.js"></script>
@@ -388,25 +403,4 @@
 
 
     function HumanMove(index) {
-      if (state != null || players[turn] != 'human') return
-
-      // turn
-      board.move(turn, index)
-      turn = (turn == 'x') ? 'o' : 'x'
-      nextTurn()
-      return ''
-    }
-
-    function renderBoard() {
-      for (let i = 0; i < 9; i++) {
-        $('#cell' + i).html(board.state[i])
-      }
-    }
-
-    for (let i = 0; i < 9; i++) {
-      $('#cell' + i).on('click', (e) => HumanMove($(e.target).attr('id').split('cell')[1]))
-    }
-  </script>
-</body>
-
-</html>
+    
