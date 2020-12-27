@@ -67,7 +67,7 @@
       border-right: 0;
     }
 
-    #startgame-link {
+    .startgame-link {
       color: white;
       padding: 10px 120px;
       border: 2px solid white;
@@ -77,7 +77,7 @@
       margin-top: 40px;
     }
 
-    #startgame-link:hover {
+    .startgame-link:hover {
       background: white;
       color: #0DA192;
     }
@@ -110,6 +110,15 @@
       height: 100px;
       object-fit: cover;
     }
+
+    .player{
+      margin: 0;
+      width: 300px;
+      margin-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -119,23 +128,21 @@
     <section>
       <h1>Tic Tac Toe</h1>
       <h3>menggunakan Algoritma MiniMax</h3>
-      <a id='startgame-link' href="#2">Mulai Permainan</a>
+      <a class='startgame-link' href="#2">Mulai Permainan</a>
+      <audio id='audio' autoplay loop></audio>
     </section>
 
     <section>
       <!-- <h1>Play Game</h1> -->
-      <a href="#1" style='margin-bottom: 30px;'>kembali</a>
+      
       <button id='btn'>Start Game</button>
-      <img id='logo'>
-      <audio id='audio' autoplay controls></audio>
-      <div class="card-container">
-        <div class='card'>
-          Main dengan Teman
-        </div>
-        <div class='card'>
-          Main dengan Komputer
-        </div>
+      <div class='startgame-link player'>
+        Main dengan Teman
       </div>
+      <div class='startgame-link player'>
+        Main dengan Komputer
+      </div>
+      <a href="#1" class="startgame-link player">kembali</a>
       <table>
         <tr>
           <td id='cell0'></td>
@@ -316,8 +323,8 @@
       $('table').css('display', 'none')
     })
 
-    document.getElementById("logo").src = "./images/logo.png";
     document.getElementById("audio").src = "./images/audio.mp3";
+    document.getElementById("audio").volume = 0.1;
     $('#btn').on('click', () => main())
     // $('#p1').on('change', () => players.x = $('#p1').val())
     // $('#p2').on('change', () => players.o = $('#p2').val())
