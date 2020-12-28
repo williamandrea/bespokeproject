@@ -147,6 +147,25 @@
       flex-direction: row;
       justify-content: space-between;
     }
+
+    .list {
+      width: 500px;
+      margin: 0;
+      margin-bottom: 30px;
+      color: white;
+      width: 630px;
+    }
+
+    .tentangkami {
+      width: 630px;
+      text-decoration: none;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 10px;
+      color: white;
+    }
   </style>
 </head>
 
@@ -196,18 +215,19 @@
     </section>
 
     <section>
-      <h2>TENTANG KAMI</h2>
-      <p>Kami adalah mahasiswa semester akhir yang iseng untuk membuat sebuah game dengan kecerdasan buatan menggunakan
-        bespoke.</p>
-      <p>Kelompok kami terdiri atas 3 orang, yaitu :
-      <ul>
-        <li>William Andrea - 171110622</li>
-        <li>Willian Andreas Tama - 171112321</li>
-        <li>Susanto - 171111016</li>
+      <h3 style='margin-bottom: 30px;'>TENTANG KAMI</h3>
+      <p style=' color: white; text-align: justify;'>Kami adalah mahasiswa semester akhir yang iseng untuk membuat
+        sebuah game dengan
+        kecerdasan buatan menggunakan
+        bespoke. Game ini dibuat menggunakan metode pengembangan lunak SCRUM selama 12 hari. Adapun kelompok kami
+        terdiri atas 3 orang, yaitu:</p>
+      <ul class='list'>
+        <li>[171110622] William Andrea</li>
+        <li>[171112321] Willian Andreas Tama</li>
+        <li>[171111016] Susanto</li>
       </ul>
-      </p>
 
-      <a href="#1" class="startgame-link player">KEMBALI</a>
+      <a href="#1" class="button-action tentangkami">KEMBALI</a>
     </section>
   </article>
 
@@ -268,22 +288,6 @@
         return (this.getPossibleMove() === 0) ? 'tie' : null
       }
 
-      printBoardPretty() {
-        let result = ''
-        let size = this.size
-        for (let i = 0; i < this.state.length; i++) {
-          let item = this.state[i]
-          if (item === '') {
-            result += '   '
-          } else {
-            result += ' ' + item + ' '
-          }
-
-          if (i % size < 2) result += '|'
-
-          if ((i + 1) % size === 0 && i < this.state.length - 1) result += '\n-----------\n'
-        }
-      }
     }
 
     class TicTacToeAI {
@@ -376,7 +380,12 @@
 
     $('#btn-back').on('click', () => window.location.href = '#1')
     $('#exit').on('click', () => handleExit())
-    $('#btn').on('click', () => main())
+    $('#btn').on('click', () => {
+      $('#playwith-teman').css('display', 'block')
+      $('#playwith-komputer').css('display', 'block')
+      $('#btn').css('display', 'none')
+      main()
+    })
     $('#playwith-teman').on('click', () => {
       players.o = 'human'
       $('#btn').css('display', 'block')
@@ -393,7 +402,6 @@
       $('#playwith-komputer').css('display', 'none')
       main()
     })
-    
     function main() {
       board = new Board()
       turn = 'x'
@@ -403,8 +411,6 @@
     }
 
     function nextTurn() {
-      console.clear()
-      board.printBoardPretty()
       renderBoard()
 
       let win = board.getWinner()
