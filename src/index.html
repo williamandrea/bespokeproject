@@ -126,10 +126,10 @@
       padding: 10px 20px;
       border: 2px solid white;
       border-radius: 5px;
-      font-size: 20px;
-      margin-top: 40px;
+      font-size: 16px;
       margin-top: 10px;
       text-align: center;
+      width: 250px;
     }
 
     .button-action:hover {
@@ -139,7 +139,7 @@
     }
 
     .button-back {
-      margin-bottom: 50px !important;
+      margin-bottom: 100px !important;
     }
 
     #container {
@@ -164,7 +164,6 @@
 
     <section id='container'>
       <div>
-        <a class='button-back'>KEMBALI</a>
         <div id='btn' class='button-action'>RESTART GAME</div>
         <div id='playwith-teman' class='button-action'>
           MAIN DENGAN TEMAN
@@ -172,6 +171,7 @@
         <div id='playwith-komputer' class='button-action'>
           MAIN DENGAN KOMPUTER
         </div>
+        <div id='btn-back' class='button-action'>KEMBALI</div>
       </div>
       <div style='margin-left: 10px;'>
         <table>
@@ -369,17 +369,31 @@
     document.getElementById("audio").src = "./images/audio.mp3";
     document.getElementById("audio").volume = 0.1;
 
+    document.addEventListener('DOMContentLoaded', () => {
+      $('table').css('display', 'none')
+      $('#btn').css('display', 'none')
+    })
+
+    $('#btn-back').on('click', () => window.location.href = '#1')
     $('#exit').on('click', () => handleExit())
     $('#btn').on('click', () => main())
     $('#playwith-teman').on('click', () => {
       players.o = 'human'
+      $('#btn').css('display', 'block')
+      $('table').css('display', 'table')
+      $('#playwith-teman').css('display', 'none')
+      $('#playwith-komputer').css('display', 'none')
       main()
     })
     $('#playwith-komputer').on('click', () => {
       players.o = 'ai'
+      $('#btn').css('display', 'block')
+      $('table').css('display', 'table')
+      $('#playwith-teman').css('display', 'none')
+      $('#playwith-komputer').css('display', 'none')
       main()
     })
-
+    
     function main() {
       board = new Board()
       turn = 'x'
