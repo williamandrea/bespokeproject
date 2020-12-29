@@ -337,6 +337,13 @@
       font-family: 'Raleway', sans-serif;
       color: #000;
     }
+
+    .minion {
+      right: 1px;
+      width: 100px;
+    }
+
+    .minions {}
   </style>
 </head>
 
@@ -345,7 +352,14 @@
 
     <section class="snowflakes">
       <h1>Tic Tac Toe</h1>
-      <h3 class='dugem' style='margin-bottom: 30px;'>menggunakan Algoritma MiniMax</h3>
+      <h3 class='dugem' style='margin-bottom: 5px;'>menggunakan Algoritma MiniMax</h3>
+      <div class="minions">
+        <img class='minion'>
+        <img class='minion'>
+        <img class='minion'>
+        <img class='minion'>
+        <img class='minion'>
+      </div>
 
       <a class='startgame-link player' href="#2">MULAI PERMAINAN</a>
       <a class='startgame-link player' href="#3">TENTANG KAMI</a>
@@ -632,7 +646,11 @@
     let turnHistory = []
 
     document.getElementById("audio").src = "./images/audio.mp3";
-    document.getElementById("audio").volume = 0.1;
+    document.getElementById("audio").volume = 0.2;
+    const minions = document.querySelectorAll(".minion")
+    for (let minion of minions) {
+      minion.src = './images/minion.gif';
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       $('table').css('display', 'none')
