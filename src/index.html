@@ -121,6 +121,11 @@
       text-align: center;
     }
 
+    .player {
+      content: '\00bb';
+      transition: 0.5;
+    }
+
     .button-action {
       color: white;
       padding: 10px 20px;
@@ -342,8 +347,6 @@
       right: 1px;
       width: 100px;
     }
-
-    .minions {}
   </style>
 </head>
 
@@ -354,11 +357,7 @@
       <h1>Tic Tac Toe</h1>
       <h3 class='dugem' style='margin-bottom: 5px;'>menggunakan Algoritma MiniMax</h3>
       <div class="minions">
-        <img class='minion'>
-        <img class='minion'>
-        <img class='minion'>
-        <img class='minion'>
-        <img class='minion'>
+        <img class='minion'><img class='minion'><img class='minion'><img class='minion'><img class='minion'>
       </div>
 
       <a class='startgame-link player' href="#2">MULAI PERMAINAN</a>
@@ -467,9 +466,9 @@
         bespoke. Game ini dibuat menggunakan metode pengembangan lunak SCRUM selama 12 hari. Adapun kelompok kami
         terdiri atas 3 orang, yaitu:</p>
       <ul class='list'>
-        <li>[171110622] William Andrea</li>
-        <li>[171112321] Willian Andreas Tama</li>
-        <li>[171111016] Susanto</li>
+        <li>[171110622] - William Andrea</li>
+        <li>[171112321] - Willian Andreas Tama</li>
+        <li>[171111016] - Susanto</li>
       </ul>
 
       <a href="#1" class="button-action tentangkami">KEMBALI</a>
@@ -540,7 +539,9 @@
 
       getPossibleMove() {
         let count = 0
-        this.state.forEach(el => { if (el === '') count++ })
+        this.state.forEach(el => {
+          if (el === '') count++
+        })
         return count
       }
 
@@ -583,14 +584,20 @@
           if (el.depth == 0) bestScore = Math.max(el.score, bestScore)
           return el.depth === 0
         })
-        let filter_best_move = filter_depth_0.filter((el) => el.score >= bestScore)
+        let filter_best_move = filter_depth_0.filter((el) =>
+          el.score >= bestScore
+        )
         let bestMove = filter_best_move[Math.floor(Math.random() * filter_best_move.length)]
         bestMove.instance = this
         return bestMove
       }
 
       minimax(board, isMaximizing, depth) {
-        let scores = { win: 1, lose: -1, tie: 0 }
+        let scores = {
+          win: 1,
+          lose: -1,
+          tie: 0
+        }
         let win = board.getWinner()
         if (win != null) {
           if (win == 'tie') return scores.tie
@@ -602,11 +609,18 @@
           let bestScore = -Infinity
           for (var i = 0; i < board.state.length; i++) {
             if (board.state[i] == '') {
-              let newBoard = new Board([...board.state])
-              newBoard.move(this.player, i) // isMaximizing = ai isntance
+              let newBoard = new Board([
+                ...board.state
+              ])
+              newBoard.move(this.player, i)
               let score = this.minimax(newBoard, false, depth + 1)
               bestScore = Math.max(score, bestScore)
-              this.moves.push({ depth, isMaximizing, move: i, score })
+              this.moves.push({
+                depth,
+                isMaximizing,
+                move: i,
+                score
+              })
             }
           }
           return bestScore
@@ -617,9 +631,14 @@
             if (board.state[i] == '') {
               let newBoard = new Board([...board.state])
               let enemy = (this.player == 'x') ? 'o' : 'x'
-              newBoard.move(enemy, i) // isMaximizing = Enemy isntance
+              newBoard.move(enemy, i)
               let score = this.minimax(newBoard, true, depth + 1)
-              this.moves.push({ depth, isMaximizing, move: i, score })
+              this.moves.push({
+                depth,
+                isMaximizing,
+                move: i,
+                score
+              })
               bestScore = Math.min(score, bestScore)
             }
           }
@@ -648,6 +667,7 @@
     document.getElementById("audio").src = "./images/audio.mp3";
     document.getElementById("audio").volume = 0.2;
     const minions = document.querySelectorAll(".minion")
+
     for (let minion of minions) {
       minion.src = './images/minion.gif';
     }
@@ -667,14 +687,7 @@
       $('result').html('')
       main()
     })
-    $('#playwith-teman').on('click', () => {
-      players.o = 'human'
-      $('#btn').css('display', 'block')
-      $('table').css('display', 'table')
-      $('#playwith-teman').css('display', 'none')
-      $('#playwith-komputer').css('display', 'none')
-      main()
-    })
+
     $('#playwith-komputer').on('click', () => {
       players.o = 'ai'
       $('#btn').css('display', 'block')
@@ -683,6 +696,16 @@
       $('#playwith-komputer').css('display', 'none')
       main()
     })
+
+    $('#playwith-teman').on('click', () => {
+      players.o = 'human'
+      $('#btn').css('display', 'block')
+      $('table').css('display', 'table')
+      $('#playwith-teman').css('display', 'none')
+      $('#playwith-komputer').css('display', 'none')
+      main()
+    })
+
     function main() {
       board = new Board()
       turn = 'x'
@@ -697,24 +720,21 @@
       let win = board.getWinner()
       if (win !== null) {
         if (win === 'tie') {
-          let msg = 'GAME DRAW!'
+          let msg = 'PERMAINAN SERI!'
           state = 'tie';
           alert(msg)
-          console.warn(msg)
         } else {
-          let msg = 'PLAYER ' + win + ' WIN!!!'
+          let msg = 'PEMAIN ' + win.toUpperCase() + ' MENANG!!!'
           state = 'win'
           alert(msg)
-          console.warn(msg)
         }
       }
 
-      let gameText = "Player [" + turn + "] " + players[turn].toUpperCase() + " turn..."
-      console.warn(gameText)
+      let gameText = "PEMAIN [" + turn.toUpperCase() + "] " + players[turn].toUpperCase() + " BERMAIN..."
       $('#result').html(gameText)
 
       if (players[turn] == 'ai') {
-        console.log("AI thinking...")
+        console.log("AI BERPIKIR...")
         setTimeout(() => AIMove(), 500)
       }
     }
@@ -723,18 +743,19 @@
       let AI = new TicTacToeAI(turn, board)
       AI.maxDepth = AIConfig[turn].maxDepth
       let result = AI.getBestMove()
-      turnHistory.push({ player: turn, move: result })
+      turnHistory.push({
+        player: turn,
+        move: result
+      })
       board.move(turn, result.move)
       turn = (turn == 'x') ? 'o' : 'x'
       setTimeout(() => nextTurn(), 1)
       return ''
     }
 
-
     function HumanMove(index) {
       if (state != null || players[turn] != 'human') return
 
-      // turn
       board.move(turn, index)
       turn = (turn == 'x') ? 'o' : 'x'
       nextTurn()
