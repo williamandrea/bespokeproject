@@ -83,35 +83,6 @@
       cursor: pointer;
     }
 
-    .card {
-      background: #f1f1f1;
-      width: 200px;
-      height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-      border-radius: 10px;
-    }
-
-    .card:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-
-    .card-container {
-      display: flex;
-      width: 400px;
-      background: pink;
-    }
-
-    #logo {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-    }
-
     .player {
       margin: 0;
       width: 500px;
@@ -352,7 +323,6 @@
 
 <body>
   <article class="deck">
-
     <section class="snowflakes">
       <h1>Tic Tac Toe</h1>
       <h3 class='dugem' style='margin-bottom: 5px;'>menggunakan Algoritma MiniMax</h3>
@@ -363,36 +333,16 @@
       <a class='startgame-link player' href="#2">MULAI PERMAINAN</a>
       <a class='startgame-link player' href="#3">TENTANG KAMI</a>
       <audio id='audio' autoplay loop></audio>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
     </section>
 
     <section id='container' class='snowflakes'>
@@ -426,36 +376,16 @@
         </table>
         <div id="result"></div>
       </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
     </section>
 
     <section class='snowflakes'>
@@ -472,36 +402,16 @@
       </ul>
 
       <a href="#1" class="button-action tentangkami">KEMBALI</a>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
-      <div class="snowflake">
-        ❅
-      </div>
-      <div class="snowflake">
-        ❆
-      </div>
-      <div class="snowflake">
-        ❄
-      </div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
     </section>
   </article>
 
@@ -571,7 +481,6 @@
 
         return (this.getPossibleMove() === 0) ? 'tie' : null
       }
-
     }
 
     class TicTacToeAI {
@@ -693,10 +602,14 @@
       $('#btn').css('display', 'none')
     })
 
-    $('#btn-back').on('click', () => window.location.href = '#1')
+    $('#btn-back').on('click', () => {
+      window.location.href = '#1'
+    })
 
-    $('#exit').on('click', () => handleExit())
-    
+    $('#exit').on('click', () => {
+      handleExit()
+    })
+
     $('#btn').on('click', () => {
       $('#playwith-teman').css('display', 'block')
       $('#playwith-komputer').css('display', 'block')
@@ -752,7 +665,9 @@
 
       if (players[turn] === 'ai') {
         console.log("KOMPUTER SEDANG BERPIKIR...")
-        setTimeout(() => AIMove(), 500)
+        setTimeout(() => {
+          AIMove()
+        }, 500)
       }
     }
 
@@ -766,7 +681,9 @@
       })
       board.move(turn, result.move)
       turn = (turn === 'x') ? 'o' : 'x'
-      setTimeout(() => nextTurn(), 1)
+      setTimeout(() => {
+        nextTurn()
+      }, 1)
       return ''
     }
 
@@ -788,7 +705,9 @@
     }
 
     for (let i = 0; i < 9; i++) {
-      $('#cell' + i).on('click', (e) => HumanMove($(e.target).attr('id').split('cell')[1]))
+      $('#cell' + i).on('click', (e) => {
+        HumanMove($(e.target).attr('id').split('cell')[1])
+      })
     }
   </script>
 </body>
