@@ -694,7 +694,9 @@
     })
 
     $('#btn-back').on('click', () => window.location.href = '#1')
+
     $('#exit').on('click', () => handleExit())
+    
     $('#btn').on('click', () => {
       $('#playwith-teman').css('display', 'block')
       $('#playwith-komputer').css('display', 'block')
@@ -722,7 +724,7 @@
       main()
     })
 
-    function main() {
+    const main = () => {
       board = new Board()
       turn = 'x'
       turnHistory = []
@@ -730,9 +732,8 @@
       nextTurn()
     }
 
-    function nextTurn() {
+    const nextTurn = () => {
       renderBoard()
-
       let win = board.getWinner()
       if (win !== null) {
         if (win === 'tie') {
@@ -750,12 +751,12 @@
       $('#result').html(gameText)
 
       if (players[turn] === 'ai') {
-        console.log("AI BERPIKIR...")
+        console.log("KOMPUTER SEDANG BERPIKIR...")
         setTimeout(() => AIMove(), 500)
       }
     }
 
-    function AIMove() {
+    const AIMove = () => {
       let AI = new TicTacToeAI(turn, board)
       AI.maxDepth = AIConfig[turn].maxDepth
       let result = AI.getBestMove()
@@ -769,7 +770,7 @@
       return ''
     }
 
-    function HumanMove(index) {
+    const HumanMove = (index) => {
       if (state != null || players[turn] != 'human') {
         return
       }
@@ -780,7 +781,7 @@
       return ''
     }
 
-    function renderBoard() {
+    const renderBoard = () => {
       for (let i = 0; i < 9; i++) {
         $('#cell' + i).html(board.state[i])
       }
