@@ -324,12 +324,34 @@
       right: 1px;
       width: 100px;
     }
+
+    .modal {
+      background: gray;
+      width: 400px;
+      height: 200px;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px;
+      color: white;
+    }
+
+    section {
+      /* background: red !important; */
+      position: relative;
+    }
   </style>
 </head>
 
 <body>
   <article class="deck">
     <section class="snowflakes">
+      <div class="modal">
+        <p class='modal-content'></p>
+        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
+      </div>
       <h1>Tic Tac Toe</h1>
       <h3 class='dugem' style='margin-bottom: 5px;'>menggunakan Algoritma MiniMax</h3>
       <div class="minions">
@@ -352,6 +374,10 @@
     </section>
 
     <section id='container' class='snowflakes'>
+      <!-- <div class="modal">
+        <p class='modal-content'></p>
+        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
+      </div> -->
       <div style='border-right: 3px solid white; padding-right: 30px;'>
         <div id='btn' class='button-action'>RESTART GAME</div>
         <div id='playwith-teman' class='button-action'>
@@ -395,6 +421,10 @@
     </section>
 
     <section class='snowflakes'>
+      <div class="modal">
+        <p class='modal-content'></p>
+        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
+      </div>
       <h3 style='margin-bottom: 30px;'>TENTANG KAMI</h3>
       <p style=' color: white; text-align: justify;'>Kami adalah mahasiswa semester akhir yang iseng untuk membuat
         sebuah game dengan
@@ -606,6 +636,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       $('table').css('display', 'none')
       $('#btn').css('display', 'none')
+      // $('.modal').css('display', 'none')
     })
 
     $('#btn-back').on('click', () => {
@@ -658,11 +689,13 @@
         if (win === 'tie') {
           let msg = 'PERMAINAN SERI!'
           state = 'tie';
-          alert(msg)
+          $('.modal').css('display', 'flex')
+          $('.modal').html(msg)
         } else {
           let msg = 'PEMAIN ' + win.toUpperCase() + ' MENANG!!!'
           state = 'win'
-          alert(msg)
+          $('.modal').css('display', 'flex')
+          $('.modal').html(msg)
         }
       }
 
