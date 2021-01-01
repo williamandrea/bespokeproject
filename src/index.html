@@ -128,6 +128,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      width: 100%;
     }
 
     .list {
@@ -337,21 +338,12 @@
       padding: 30px;
       color: white;
     }
-
-    section {
-      /* background: red !important; */
-      position: relative;
-    }
   </style>
 </head>
 
 <body>
   <article class="deck">
     <section class="snowflakes">
-      <div class="modal">
-        <p class='modal-content'></p>
-        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
-      </div>
       <h1>Tic Tac Toe</h1>
       <h3 class='dugem' style='margin-bottom: 5px;'>menggunakan Algoritma MiniMax</h3>
       <div class="minions">
@@ -373,58 +365,57 @@
       <div class="snowflake">❅</div>
     </section>
 
-    <section id='container' class='snowflakes'>
-      <!-- <div class="modal">
-        <p class='modal-content'></p>
-        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
-      </div> -->
-      <div style='border-right: 3px solid white; padding-right: 30px;'>
-        <div id='btn' class='button-action'>RESTART GAME</div>
-        <div id='playwith-teman' class='button-action'>
-          MAIN DENGAN TEMAN
-        </div>
-        <div id='playwith-komputer' class='button-action'>
-          MAIN DENGAN KOMPUTER
-        </div>
-        <div id='btn-back' class='button-action'>KEMBALI</div>
-      </div>
-      <div style='margin-left: 10px;'>
-        <table>
-          <tr>
-            <td id='cell0'></td>
-            <td id='cell1'></td>
-            <td id='cell2'></td>
-          </tr>
-          <tr>
-            <td id='cell3'></td>
-            <td id='cell4'></td>
-            <td id='cell5'></td>
-          </tr>
-          <tr>
-            <td id='cell6'></td>
-            <td id='cell7'></td>
-            <td id='cell8'></td>
-          </tr>
-        </table>
-        <div id="result"></div>
-      </div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-      <div class="snowflake">❅</div>
-    </section>
-
     <section class='snowflakes'>
       <div class="modal">
         <p class='modal-content'></p>
-        <button class='button-action' style='color: #0DA192;'>TUTUP</button>
+        <button id='btn-tutup' class='button-action' style='color: #0DA192;'>TUTUP</button>
       </div>
+      <div id="container">
+        <div
+          style='border-right: 3px solid white; padding-right: 30px; display: flex; align-items: center; flex-direction: column; justify-content: center;'>
+          <div id='btn' class='button-action'>RESTART GAME</div>
+          <div id='playwith-teman' class='button-action'>
+            MAIN DENGAN TEMAN
+          </div>
+          <div id='playwith-komputer' class='button-action'>
+            MAIN DENGAN KOMPUTER
+          </div>
+          <div id='btn-back' class='button-action'>KEMBALI</div>
+        </div>
+        <div style='margin-left: 10px;'>
+          <table>
+            <tr>
+              <td id='cell0'></td>
+              <td id='cell1'></td>
+              <td id='cell2'></td>
+            </tr>
+            <tr>
+              <td id='cell3'></td>
+              <td id='cell4'></td>
+              <td id='cell5'></td>
+            </tr>
+            <tr>
+              <td id='cell6'></td>
+              <td id='cell7'></td>
+              <td id='cell8'></td>
+            </tr>
+          </table>
+          <div id="result"></div>
+        </div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❅</div>
+      </div>
+    </section>
+
+    <section class='snowflakes'>
       <h3 style='margin-bottom: 30px;'>TENTANG KAMI</h3>
       <p style=' color: white; text-align: justify;'>Kami adalah mahasiswa semester akhir yang iseng untuk membuat
         sebuah game dengan
@@ -636,11 +627,15 @@
     document.addEventListener('DOMContentLoaded', () => {
       $('table').css('display', 'none')
       $('#btn').css('display', 'none')
-      // $('.modal').css('display', 'none')
+      $('.modal').css('display', 'none')
     })
 
     $('#btn-back').on('click', () => {
       window.location.href = '#1'
+    })
+
+    $('#btn-tutup').on('click', () => {
+      $('.modal').css('display', 'none')
     })
 
     $('#exit').on('click', () => {
@@ -690,12 +685,12 @@
           let msg = 'PERMAINAN SERI!'
           state = 'tie';
           $('.modal').css('display', 'flex')
-          $('.modal').html(msg)
+          $('.modal-content').html(msg)
         } else {
           let msg = 'PEMAIN ' + win.toUpperCase() + ' MENANG!!!'
           state = 'win'
           $('.modal').css('display', 'flex')
-          $('.modal').html(msg)
+          $('.modal-content').html(msg)
         }
       }
 
