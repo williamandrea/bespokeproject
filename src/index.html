@@ -740,7 +740,9 @@
 
     for (let i = 0; i < 9; i++) {
       $('#cell' + i).on('click', (e) => {
-        HumanMove($(e.target).attr('id').split('cell')[1])
+        if ($('#cell' + i).html() === '') {
+          HumanMove($(e.target).attr('id').split('cell')[1])
+        }
       })
     }
   </script>
